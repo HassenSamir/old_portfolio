@@ -1,22 +1,13 @@
-$(function(){
-
-    $(".navbar a, footer a").on("click", function(event){
+$(function () {
     
-        event.preventDefault();
-        var hash = this.hash;
-        
-        $('body,html').animate({scrollTop: $(hash).offset().top} , 900 , function(){window.location.hash = hash;})
-        
-    });
-
-	 $('#contact-form').submit(function(e) {
+    $('#contact-form').submit(function(e) {
         e.preventDefault();
         $('.comments').empty();
         var postdata = $('#contact-form').serialize();
         
         $.ajax({
             type: 'POST',
-            url: 'php/contact.php',
+            url: 'index.php',
             data: postdata,
             dataType: 'json',
             success: function(json) {
@@ -37,4 +28,5 @@ $(function(){
             }
         });
     });
+
 })

@@ -1,3 +1,81 @@
+<?php
+
+    $firstname = $name = $email = $phone = $message = "";
+	$firstnameError = $nameError = $emailError = $phoneError = $messageError = "";
+	$isSuccess = false;
+   
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") 
+    { 
+		
+        $firstname = verifyInput($_POST["firstname"]);
+        $name = verifyInput($_POST["name"]);
+        $email = verifyInput($_POST["email"]);
+        $phone = verifyInput($_POST["phone"]);
+        $message = verifyInput($_POST["message"]);
+        $isSuccess = true;
+        
+        
+        if (empty($firstname))
+        {
+            $firstnameError = "Je veux connaitre ton prénom !";
+            $isSuccess = false; 
+        } 
+
+        if (empty($name))
+        {
+            $nameError = "Et oui je veux tout savoir. Même ton nom !";
+            $isSuccess= false; 
+        } 
+		
+        if (empty($message))
+        {
+            $messageError = "Qu'est-ce que tu veux me dire ?";
+            $isSuccess = false; 
+        }
+
+        if(!isEmail($email)) 
+        {
+            $emailError = "T'essaies de me rouler ? C'est pas un email ça  !";
+            $isSuccess = false; 
+        } 
+
+        if (!isPhone($phone))
+        {
+            $phoneError = "Que des chiffres et des espaces, stp...";
+            $isSuccess = false; 
+        }
+		
+		
+		if($isSuccess)
+		{
+			//envoie de l'email
+		}
+        
+	}
+     
+       
+ 	function isPhone($var) 
+    {
+        return preg_match("/^[0-9 ]*$/",$var);
+    }
+		
+    function isEmail($var) 
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+   
+    function verifyInput($var) 
+    {
+      $var = trim($var);
+      $var = stripslashes($var);
+      $var = htmlspecialchars($var);
+      return $var;
+	 
+    }
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -219,6 +297,26 @@
                            <img src="images/burger_admin.png" alt="BurgerCode_Admin"> 
                         </a>
                     </div>
+					<div class="col-sm-4">
+                        <a class="thumbnail" href="https://zealous-lamport-1435c2.netlify.app/" target="https://zealous-lamport-1435c2.netlify.app/">
+                           <img src="images/RockPaperScissors.PNG" alt="RockPaperScissors"> 
+                        </a>
+                    </div>
+					<div class="col-sm-4">
+                        <a class="thumbnail" href="" target="">
+                           <img src="images/RecipesApp.PNG" alt="RecipesApp"> 
+                        </a>
+                    </div>
+					<div class="col-sm-4">
+                        <a class="thumbnail" href="" target="">
+                           <img src="images/WeatherApp.PNG" alt="WeatherApp"> 
+                        </a>
+                    </div>
+					<div class="col-sm-4">
+                        <a class="thumbnail" href="" target="">
+                           <img src="images/MovieApp.PNG" alt="MovieApp"> 
+                        </a>
+                    </div>
                 </div>        
             </div>  
         </section>
@@ -263,9 +361,11 @@
                                 <p class="blue"><strong>* Ces informations sont requises.</strong></p>
                             </div>
                             <div class="col-md-12">
-                                <input type="submit" class="button2" value="Envoyer">
+                                <input type="submit" class="button2" value="Envoyer" >
                             </div>    
                         </div>
+						
+						
                     </form>
                 </div>
            </div>
